@@ -8,7 +8,6 @@ import (
 
 type UserRepository interface {
 	FindUsers() ([]models.User, error)
-	GetUser(ID int) (models.User, error)
 	// ChangePassword(user models.User) (models.User, error)
 	// ChangeImage(user models.User) (models.User, error)
 }
@@ -24,9 +23,3 @@ func (r *repository) FindUsers() ([]models.User, error) {
 	return users, err
 }
 
-func (r *repository) GetUser(ID int) (models.User, error) {
-	var user models.User
-	err := r.db.Preload("ListAs").First(&user, ID).Error
-
-	return user, err
-}

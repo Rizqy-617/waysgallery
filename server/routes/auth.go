@@ -15,4 +15,5 @@ func AuthRoutes(e *echo.Group) {
 
 	e.POST("/register", middleware.UploadFile(h.Register))
 	e.POST("/login", h.Login)
+	e.GET("/check-auth", middleware.Auth(h.CheckAuth))
 }
