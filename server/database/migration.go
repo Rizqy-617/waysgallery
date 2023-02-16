@@ -9,6 +9,8 @@ import (
 func RunMigration() {
 	err := postgres.DB.AutoMigrate(
 		&models.User{},
+		&models.Post{},
+		&models.PostImage{},
 	)
 
 	if err != nil {
