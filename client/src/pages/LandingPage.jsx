@@ -5,10 +5,12 @@ import shape3 from "../assets/shapes/shape3.svg"
 import logo from "../assets/images/logo.svg"
 import programmerlogo from "../assets/images/programmer.svg"
 import RegisterModal from "../components/modals/register";
+import LoginModal from "../components/modals/login";
 
 
 export default function LandingPage() {
   const [showRegisterModal, setShowRegisterModal] = useState(false)
+  const [showLoginModal, setShowLoginModal] = useState(false)
 
   const handleShowRegisterModal = () => {
     setShowRegisterModal(true);
@@ -16,6 +18,14 @@ export default function LandingPage() {
 
   const handleCloseRegisterModal = () => {
     setShowRegisterModal(false)
+  }
+
+  const handleShowLoginModal = () => {
+    setShowLoginModal(true)
+  }
+
+  const handleCLoseLoginModal = () => {
+    setShowLoginModal(false)
   }
 
   return (
@@ -56,6 +66,7 @@ export default function LandingPage() {
                         </button>
                         <button
                             className="px-5 py-3 rounded-md text-slate-800 font-medium bg-[#E7E7E7] text-xs lg:text-sm hover:text-white hover:bg-[#2FC4B2]"
+                            onClick={handleShowLoginModal}
                         >
                             Login
                         </button>
@@ -68,6 +79,7 @@ export default function LandingPage() {
         </div>
     </div>
     <RegisterModal show={showRegisterModal} handleClose={handleCloseRegisterModal}/>
+    <LoginModal show={showLoginModal} handleClose={handleCLoseLoginModal} />
     </>
 );
 }
