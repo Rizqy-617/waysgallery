@@ -10,35 +10,37 @@ if (localStorage.token) {
 }
 
 export default function App() {
-  // const [state, dispatch] = useContext(AppContext);
+  const [state, dispatch] = useContext(AppContext);
 
-  // useEffect(() => {
-  //   if (localStorage.token) {
-  //     const checkAuth = async () => {
-  //       try {
-  //         setAuthToken(localStorage.token);
-  //         const response = await API.get("/check-auth");
-  //         let payload = response.data.data.user;
-  //         payload.token = localStorage.token;
-  //         dispatch({
-  //           type: "USER_SUCCESS",
-  //           payload,
-  //         })
-  //       } catch (error) {
-  //         dispatch({
-  //           type: "AUTH_ERROR",
-  //         });
-  //         console.log(error)
-  //       }
-  //     };
-  //     checkAuth()
-  //     return;
-  //   }
-  // }, [dispatch])
+  useEffect(() => {
+    if (localStorage.token) {
+      const checkAuth = async () => {
+        try {
+          setAuthToken(localStorage.token);
+          const response = await API.get("/check-auth");
+          let payload = response.data.data.user;
+          payload.token = localStorage.token;
+          dispatch({
+            type: "USER_SUCCESS",
+            payload,
+          })
+        } catch (error) {
+          dispatch({
+            type: "AUTH_ERROR",
+          });
+          console.log(error)
+        }
+      };
+      checkAuth()
+      return;
+    }
+  }, [dispatch])
 
   return (
       <Routes>
-        <Route exact path="/" element={<LandingPage />} />
+        <Route element={<PrivateRoute isOK={!state.isLogin} redirectPath="/" />}>
+          <Route exact path="/" element={<LandingPage />} />
+        </Route>
       </Routes>
   )
 }

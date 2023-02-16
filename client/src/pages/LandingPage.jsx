@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import shape1 from "../assets/shapes/shape1.svg"
 import shape2 from "../assets/shapes/shape2.svg"
 import shape3 from "../assets/shapes/shape3.svg"
 import logo from "../assets/images/logo.svg"
 import programmerlogo from "../assets/images/programmer.svg"
+import RegisterModal from "../components/modals/register";
 
 
 export default function LandingPage() {
+  const [showRegisterModal, setShowRegisterModal] = useState(false)
+
+  const handleShowRegisterModal = () => {
+    setShowRegisterModal(true);
+  }
+
+  const handleCloseRegisterModal = () => {
+    setShowRegisterModal(false)
+  }
+
   return (
-    <div className="relative">
+    <>
+      <div className="relative">
         <div className="absolute -top-0 -left-0">
             <img src={shape1} alt="" />
         </div>
@@ -33,12 +45,12 @@ export default function LandingPage() {
                         show your work to inspire everyone
                     </h1>
                     <p className="mt-2 text-s text-gray-600">
-                        Ways Exhibition is a website design creators gather
+                        WaysGallery is a website design creators gather
                         to share their work with other creators
                     </p>
                     <div className="mt-4 flex gap-2">
                         <button
-                            className="px-5 py-3 rounded-md text-white font-medium bg-[#2FC4B2] text-xs lg:text-sm hover:bg-[#2aa193]"
+                            className="px-5 py-3 rounded-md text-white font-medium bg-[#2FC4B2] text-xs lg:text-sm hover:bg-[#2aa193]" onClick={handleShowRegisterModal}
                         >
                             Join Now
                         </button>
@@ -55,5 +67,7 @@ export default function LandingPage() {
             </div>
         </div>
     </div>
+    <RegisterModal show={showRegisterModal} handleClose={handleCloseRegisterModal}/>
+    </>
 );
 }
