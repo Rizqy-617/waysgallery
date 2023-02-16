@@ -1,7 +1,9 @@
 package models
 
+import "gorm.io/gorm"
+
 type User struct {
-	ID       int    `json:"id" gorm:"primary_key:auto_increment"`
+	gorm.Model
 	Email    string `json:"email" gorm:"type: varchar(255)"`
 	Password string `json:"password" gorm:"type: varchar(255)"`
 	Fullname string `json:"fullname" gorm:"type: varchar(255)"`
@@ -10,9 +12,9 @@ type User struct {
 }
 
 type UserResponse struct {
-	ID int `json:"id"`
+	gorm.Model
 	Fullname string `json:"fullname"`
-	Email string `json:"email"`
+	Email    string `json:"email"`
 }
 
 func (UserResponse) Tablename() string {
