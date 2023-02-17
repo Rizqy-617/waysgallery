@@ -5,11 +5,13 @@ import { useMutation } from "react-query";
 import { API } from "../../config/api";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
+import { useNavigate } from "react-router-dom";
 
 
 export default function LoginModal({ show, handleClose }) {
-  const [state, dispacth] = useContext(AppContext)
-  const [alert, setAlert] = useState()
+  const navigate = useNavigate();
+  const [state, dispacth] = useContext(AppContext);
+  const [alert, setAlert] = useState();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -49,6 +51,7 @@ export default function LoginModal({ show, handleClose }) {
           </Alert>
         );
         handleClose();
+        navigate("/")
       }
     } catch (error) {
       console.log(error)

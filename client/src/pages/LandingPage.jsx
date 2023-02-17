@@ -73,7 +73,7 @@ export default function LandingPage() {
                     </div>
                 </div>
                 <div className="w-full flex justify-center items-center">
-                  <img src={programmerlogo} />
+                    <img src={programmerlogo} />
                 </div>
             </div>
         </div>
