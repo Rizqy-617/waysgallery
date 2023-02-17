@@ -65,7 +65,7 @@ export default function LoginModal({ show, handleClose }) {
           <Modal.Body>
               <div className="p-0">
                   <h1 className="text-xl font-semibold text-[#2FC4B2]">
-                      Register
+                    Login
                   </h1>
                   {alert}
                   <form

@@ -31,10 +31,13 @@ func (h *handlerPost) FindPosts(c echo.Context) error {
 }
 
 func (h *handlerPost) GetPost(c echo.Context) error {
-	id, _ := strconv.Atoi(c.Param("ID"))
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
+	}
 
 	var post models.Post
-	post, err := h.PostRepository.GetPost(id)
+	post, err = h.PostRepository.GetPost(id)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
 	}
