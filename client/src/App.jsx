@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { API, setAuthToken } from './config/api';
 import { AppContext } from './context/AppContext';
+import DetailPost from './pages/DetailPost';
 import HomePage from './pages/Home';
 import LandingPage from './pages/LandingPage';
 import PrivateRoute from './PrivateRoute';
@@ -57,6 +58,7 @@ export default function App() {
 
         <Route element={<PrivateRoute />}>
           <Route exact path="/" element={<HomePage />} />
+          <Route exact path='/detail/:id' element={<DetailPost />} />
         </Route>
       </Routes>
   )

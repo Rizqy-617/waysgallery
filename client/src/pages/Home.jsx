@@ -7,14 +7,8 @@ import { API } from "../config/api";
 
 export default function HomePage() {
 
-  const { data: post, isLoading } = useQuery("post", async () => {
-    const config = {
-      headers: {
-        Authorization: "Bearer " + localStorage.token,
-      },
-    };
-
-    const response = await API.get("/posts", config);
+  const { data: post, isLoading } = useQuery("postCache", async () => {
+    const response = await API.get("/posts");
     return response.data.data.post;
   });
   console.log("ini data post", post)
@@ -61,9 +55,9 @@ export default function HomePage() {
         <div className="pt-8 font-medium">
           <h1>today's post</h1>
             <div className="columns-3 md:columns-3 lg:columns-3 mt-4">
-              <div className="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0">
+              <div className="relative mb-4">
                 {post?.map((item) => (
-                  <Link to={`/detail/${item.id}`} key={item.id}>
+                  <Link to={`/detail/${item.ID}`} key={item.ID}>
                     {item.post_image?.map((img, index) => (
                         <img key={index} src={img.image} className="w-full rounded-md mb-6" alt="thumbnail" />
                     )).shift()}

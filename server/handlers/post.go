@@ -31,7 +31,7 @@ func (h *handlerPost) FindPosts(c echo.Context) error {
 }
 
 func (h *handlerPost) GetPost(c echo.Context) error {
-	id, _ := strconv.Atoi(c.Param("id"))
+	id, _ := strconv.Atoi(c.Param("ID"))
 
 	var post models.Post
 	post, err := h.PostRepository.GetPost(id)

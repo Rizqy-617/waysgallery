@@ -13,7 +13,7 @@ func PostRoutes(e *echo.Group) {
 	postRepository := repositories.RepositoryPost(postgres.DB)
 	h := handlers.HandlerPost(postRepository)
 
-	e.GET("/posts", middleware.Auth(h.FindPosts))
-	e.GET("/post/{id}", middleware.Auth(h.GetPost))
+	e.GET("/posts", h.FindPosts)
+	e.GET("/post/{id}", h.GetPost)
 	e.POST("/post", middleware.Auth(middleware.UploadMultipleFile(h.CreatePost)))
 }
