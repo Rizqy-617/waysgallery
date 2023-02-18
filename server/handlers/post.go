@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 	postdto "waysgallery/dto/post"
@@ -81,4 +82,21 @@ func (h *handlerPost) CreatePost(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, dto.SuccessResult{Code: http.StatusOK, Data: data})
+}
+
+func (h *handlerPost) FindPostByCreator(c echo.Context) error {
+	createBy, err := strconv.Atoi(c.Param("created_by"))
+	if err != nil {
+		fmt.Println("Ini Error CreateBy")
+		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
+	}
+	fmt.Println("ini param", createBy)
+
+	posts, err := h.PostRepository.FindPostByCreator(createBy)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
+	}
+	fmt.Println("ini posts", posts)
+
+	return c.JSON(http.StatusOK, dto.SuccessResult{Code: http.StatusOK, Data: posts})
 }

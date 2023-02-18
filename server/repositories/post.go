@@ -8,9 +8,9 @@ import (
 
 type PostRepository interface {
 	FindPosts() ([]models.Post, error)
-	// FindPostByCreator(ID int) ([]models.Post, error)
 	GetPost(ID int) (models.Post, error)
 	CreatePost(post models.Post) (models.Post, error)
+	FindPostByCreator(ID int) ([]models.Post, error)
 }
 
 func RepositoryPost(db *gorm.DB) *repository {
@@ -33,6 +33,13 @@ func (r *repository) GetPost(ID int) (models.Post, error) {
 
 func (r *repository) CreatePost(post models.Post) (models.Post, error ) {
 	err := r.db.Create(&post).Error
+
+	return post, err
+}
+
+func (r *repository) FindPostByCreator(ID int) ([]models.Post, error) {
+	var post []models.Post
+	err := r.db.Preload("PostImage").Preload("User").Where("created_by=?", ID).Find(&post).Error
 
 	return post, err
 }

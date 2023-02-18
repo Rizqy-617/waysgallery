@@ -5,7 +5,7 @@ import { AppContext } from './context/AppContext';
 import DetailPost from './pages/DetailPost';
 import HomePage from './pages/Home';
 import LandingPage from './pages/LandingPage';
-import DetailsUser from './pages/ProfilePage';
+import DetailsUser from './pages/DetailUser';
 import PrivateRoute from './PrivateRoute';
 
 export default function App() {
