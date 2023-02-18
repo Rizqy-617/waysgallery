@@ -15,6 +15,7 @@ func RunMigration() {
 		&models.ProjectImage{},
 		&models.Follow{},
 		&models.Hired{},
+		&models.Art{},
 	)
 
 	if err != nil {
