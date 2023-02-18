@@ -8,7 +8,7 @@ type User struct {
 	Password string `json:"password" gorm:"type: varchar(255)"`
 	Fullname string `json:"fullname" gorm:"type: varchar(255)"`
 	Greeting string `json:"greeting" gorm:"type: varchar(255)"`
-	Avatar   string `json:"avatar" gorm:"type: varchar(255)"`
+	Avatar   string `json:"image" gorm:"type: varchar(255)"`
 }
 
 type UserResponse struct {
@@ -16,7 +16,7 @@ type UserResponse struct {
 	Fullname string `json:"fullname"`
 	Email    string `json:"email"`
 	Greeting string `json:"greeting"`
-	Avatar   string `json:"avatar"`
+	Avatar   string `json:"image"`
 }
 
 func (UserResponse) Tablename() string {

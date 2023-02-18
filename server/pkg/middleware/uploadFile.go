@@ -10,7 +10,7 @@ import (
 
 func UploadFile(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		file, err := c.FormFile("avatar")
+		file, err := c.FormFile("image")
 		if err != nil {
 			return c.JSON(http.StatusBadRequest, err)
 		}

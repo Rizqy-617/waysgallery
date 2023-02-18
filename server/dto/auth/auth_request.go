@@ -5,7 +5,7 @@ type RegisterRequest struct {
 	Password string `json:"password" gorm:"type: varchar(255)" validate:"required"`
 	Fullname string `json:"fullname" gorm:"type: varchar(255)" validate:"required"`
 	Greeting string `json:"greeting" gorm:"type: varchar(255)" validate:"required"`
-	Avatar   string `json:"avatar" gorm:"type: varchar(255)"`
+	Avatar   string `json:"image" gorm:"type: varchar(255)"`
 }
 
 type LoginRequest struct {
