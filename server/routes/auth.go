@@ -3,14 +3,14 @@ package routes
 import (
 	"waysgallery/handlers"
 	"waysgallery/pkg/middleware"
-	"waysgallery/pkg/postgres"
+	"waysgallery/pkg/mysql"
 	"waysgallery/repositories"
 
 	"github.com/labstack/echo/v4"
 )
 
 func AuthRoutes(e *echo.Group) {
-	authRepository := repositories.RepositoryAuth(postgres.DB)
+	authRepository := repositories.RepositoryAuth(mysql.DB)
 	h := handlers.HandlerAuth(authRepository)
 
 	e.POST("/register", middleware.UploadFile(h.Register))

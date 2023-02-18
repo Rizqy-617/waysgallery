@@ -4,6 +4,8 @@ go 1.19
 
 require github.com/joho/godotenv v1.5.1
 
+require github.com/go-sql-driver/mysql v1.7.0 // indirect
+
 require (
 	github.com/cloudinary/cloudinary-go/v2 v2.2.0 // indirect
 	github.com/creasty/defaults v1.5.1 // indirect
@@ -34,6 +36,7 @@ require (
 	golang.org/x/sys v0.5.0 // indirect
 	golang.org/x/text v0.7.0 // indirect
 	golang.org/x/time v0.2.0 // indirect
+	gorm.io/driver/mysql v1.4.7
 	gorm.io/driver/postgres v1.4.7 // indirect
 	gorm.io/gorm v1.24.5 // indirect
 )

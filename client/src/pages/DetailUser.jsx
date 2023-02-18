@@ -10,13 +10,41 @@ import profileart from "../assets/images/404-error-with-landscape-concept-illust
 
 export default function DetailsUser() {
     const { id } = useParams()
+    console.log("ini id", id)
 
-    const { data: userProfile } = useQuery("userProfileCache", async () => {
-        const response = await API.get("/post/" + id)
-        return response.data.data.post
+    const { data: userProfile } = useQuery("DataUserProfileCache", async () => {
+        try {
+            const config = {
+                headers: {
+                    "Authorization": "Bearer " + localStorage.token
+                }
+            }
+
+            const response = await API.get("/user/" + id, config)
+            return response.data.data
+        } catch (error) {
+            console.log(error)
+        }
+    })
+    const { data: DataUserProfile } = useQuery("DataUserProfileCache", async () => {
+        try {
+            const config = {
+                headers: {
+                    "Authorization": "Bearer " + localStorage.token
+                }
+            }
+
+            const response = await API.get("/post/" + id, config)
+            return response.data.data
+        } catch (error) {
+            console.log(error)
+        }
     })
 
-    console.log("ini user", userProfile)
+
+    
+    console.log("ini user baru harusnya", userProfile)
+    console.log("ini data post", DataUserProfile)
 
     return (
     <div className="w-screen h-screen">
@@ -38,10 +66,10 @@ export default function DetailsUser() {
                             size="lg"
                         />
                         <h3 className="py-4 font-medium text-3xl">
-                            {userProfile?.user.fullname}
+                            {userProfile?.fullname}
                         </h3>
                         <h1 className="text-5xl w-[70%] font-semibold ">
-                            {userProfile?.user.greeting}
+                            {userProfile?.greeting}
                         </h1>
                         <div className="mt-12 flex items-center gap-3">
                             <Button size="lg" color="light">
@@ -60,19 +88,32 @@ export default function DetailsUser() {
                         className="w-[800px] h-[500px] rounded-md border border-emerald-500"
                     />
                 </div>
-                {console.log("ini data image", userProfile?.post_image)}
             </div>
-            <div className="py-16 lg:max-w-screen-2xl ml-16">
-                <h3 className="font-medium text-3xl">My Works</h3>
-                <div className="grid grid-cols-3 gap-4 pt-6">
-                    {userProfile?.post_image.map((item, index) => {
-                        console.log("ini imagggge", item)
-                        return(
-                        <Link>
-                            <img key={index} src={item.image} className="w-50 rounded-md gap-10" alt="thumbnail"/>
-                        </Link>
-                        )
-                        })}
+            <div className="py-16 lg:max-w-screen-3xl ml-16 mr-20">
+                <h3 className="font-medium text-3xl">{userProfile?.fullname} Works</h3>
+                <div className="grid grid-cols-4 gap-4 pt-6">
+					{userProfile?.posts.length !== 0 ? (
+						<>
+							{userProfile?.posts.map((item) => (
+                                <Link>
+                                <img
+                                    alt="Image"
+                                    key={item?.post_image[0].post_id}
+                                    src={
+                                        item?.post_image[0].image
+                                    }
+                                    className="w-50 rounded-md"
+                                />
+                                </Link>
+							))}
+						</>
+					) : (
+						<>
+							<Alert variant="dark">
+								Sorry, there is no list of data yet.
+							</Alert>
+						</>
+					)}
                 </div>
             </div>
         </div>

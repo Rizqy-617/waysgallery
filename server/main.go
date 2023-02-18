@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 	"waysgallery/database"
-	"waysgallery/pkg/postgres"
+	"waysgallery/pkg/mysql"
 	"waysgallery/routes"
 
 	"github.com/joho/godotenv"
@@ -25,7 +25,7 @@ func main() {
 	PORT := os.Getenv("PORT")
 	VERSION := os.Getenv("API_VERSION")
 
-	postgres.DatabaseInit()
+	mysql.DatabaseInit()
 
 	database.RunMigration()
 

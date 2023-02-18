@@ -81,7 +81,12 @@ func (h *handlerPost) CreatePost(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
 	}
 
-	return c.JSON(http.StatusOK, dto.SuccessResult{Code: http.StatusOK, Data: data})
+	dataInserted, err := h.PostRepository.GetPost(int(data.ID))
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
+	}
+
+	return c.JSON(http.StatusOK, dto.SuccessResult{Code: http.StatusOK, Data: postdto.PostResponse{Post: dataInserted}})
 }
 
 func (h *handlerPost) FindPostByCreator(c echo.Context) error {
@@ -90,13 +95,11 @@ func (h *handlerPost) FindPostByCreator(c echo.Context) error {
 		fmt.Println("Ini Error CreateBy")
 		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
 	}
-	fmt.Println("ini param", createBy)
 
 	posts, err := h.PostRepository.FindPostByCreator(createBy)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
 	}
-	fmt.Println("ini posts", posts)
 
 	return c.JSON(http.StatusOK, dto.SuccessResult{Code: http.StatusOK, Data: posts})
 }

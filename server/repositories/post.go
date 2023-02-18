@@ -26,7 +26,7 @@ func (r *repository) FindPosts() ([]models.Post, error) {
 
 func (r *repository) GetPost(ID int) (models.Post, error) {
 	var post models.Post
-	err := r.db.Preload("User").Preload("PostImage").First(&post, ID).Error
+	err := r.db.Debug().Preload("PostImage").Preload("User").First(&post, ID).Error
 
 	return post, err
 }

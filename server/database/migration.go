@@ -3,11 +3,11 @@ package database
 import (
 	"fmt"
 	"waysgallery/models"
-	"waysgallery/pkg/postgres"
+	mysql "waysgallery/pkg/mysql"
 )
 
 func RunMigration() {
-	err := postgres.DB.AutoMigrate(
+	err := mysql.DB.AutoMigrate(
 		&models.User{},
 		&models.Post{},
 		&models.PostImage{},

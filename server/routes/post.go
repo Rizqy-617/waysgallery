@@ -3,14 +3,14 @@ package routes
 import (
 	"waysgallery/handlers"
 	"waysgallery/pkg/middleware"
-	"waysgallery/pkg/postgres"
+	"waysgallery/pkg/mysql"
 	"waysgallery/repositories"
 
 	"github.com/labstack/echo/v4"
 )
 
 func PostRoutes(e *echo.Group) {
-	postRepository := repositories.RepositoryPost(postgres.DB)
+	postRepository := repositories.RepositoryPost(mysql.DB)
 	h := handlers.HandlerPost(postRepository)
 
 	e.GET("/posts", middleware.Auth(h.FindPosts))
