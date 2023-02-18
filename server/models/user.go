@@ -15,6 +15,8 @@ type UserResponse struct {
 	gorm.Model
 	Fullname string `json:"fullname"`
 	Email    string `json:"email"`
+	Greeting string `json:"greeting"`
+	Avatar   string `json:"avatar"`
 }
 
 func (UserResponse) Tablename() string {

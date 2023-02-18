@@ -5,11 +5,13 @@ import { AppContext } from './context/AppContext';
 import DetailPost from './pages/DetailPost';
 import HomePage from './pages/Home';
 import LandingPage from './pages/LandingPage';
+import DetailsUser from './pages/ProfilePage';
 import PrivateRoute from './PrivateRoute';
 
 export default function App() {
   const navigate = useNavigate()
   const [state, dispatch] = useContext(AppContext);
+  const [isLoading, setIsLoading] = useState(true)
 
   if (localStorage.token) {
     setAuthToken(localStorage.token);
@@ -40,8 +42,10 @@ export default function App() {
           type: "USER_SUCCESS",
           payload,
       });
+      setIsLoading(false)
     } catch (error) {
         console.log(error);
+        setIsLoading(false)
     }
   };
 
@@ -49,17 +53,27 @@ export default function App() {
     if (localStorage.token) {
         checkUser();
     }
+    setIsLoading(false)
   }, []);
 
 
   return (
+    <>
+    {isLoading ? (
+      <>
+        <h1>Lagi Loading</h1>
+      </>
+    ) : (
       <Routes>
         <Route path="/landing" element={<LandingPage />} />
 
         <Route element={<PrivateRoute />}>
           <Route exact path="/" element={<HomePage />} />
-          <Route exact path='/detail/:id' element={<DetailPost />} />
+          <Route exact path="/detail/:id" element={<DetailPost />} />
+          <Route exact path="/details-user/:id" element={<DetailsUser />} />
         </Route>
       </Routes>
+    )}
+    </> 
   )
 }

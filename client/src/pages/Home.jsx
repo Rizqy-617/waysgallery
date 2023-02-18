@@ -4,10 +4,11 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import Navbars from "../components/Navbars";
 import { API } from "../config/api";
+import search from "../assets/icons8-search.svg"
 
 export default function HomePage() {
 
-  const { data: post, isLoading } = useQuery("postCache", async () => {
+  const { data: post } = useQuery("postCache", async () => {
     const response = await API.get("/posts");
     return response.data.data.post;
   });
@@ -38,9 +39,9 @@ export default function HomePage() {
           <div>
               <form className="flex items-center">
                   <div className="relative w-full">
-                      {/* <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                          <img src={search} alt="search" />
-                      </div> */}
+                      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                          <img src={search} alt="search" width={20} height={20}/>
+                      </div>
                       <input
                           type="text"
                           id="simple-search"
@@ -65,7 +66,6 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-            
         </div>
     </div>
     </>
