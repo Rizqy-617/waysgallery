@@ -95,7 +95,7 @@ export default function DetailsUser() {
 					{userProfile?.posts.length !== 0 ? (
 						<>
 							{userProfile?.posts.map((item) => (
-                                <Link>
+                                <Link to={`/detail/${item?.post_image[0].post_id}`}>
                                 <img
                                     alt="Image"
                                     key={item?.post_image[0].post_id}
