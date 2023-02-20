@@ -21,7 +21,6 @@ func main() {
 
 	e := echo.New()
 
-	SERVER_NAME := os.Getenv("SERVER_NAME")
 	PORT := os.Getenv("PORT")
 	VERSION := os.Getenv("API_VERSION")
 
@@ -40,6 +39,6 @@ func main() {
 	e.Static("/uploads", "./uploads")
 
 
-	fmt.Println("Server is running on http://" + SERVER_NAME + ":" + PORT + "/api/" + VERSION)
-	e.Logger.Fatal(e.Start(SERVER_NAME + ":" + PORT))
+	fmt.Println("Server is running on http://" + ":" + PORT + "/api/" + VERSION)
+	e.Logger.Fatal(e.Start(":" + PORT))
 }
