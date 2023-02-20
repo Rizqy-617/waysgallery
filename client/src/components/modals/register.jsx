@@ -1,5 +1,5 @@
 import React, { useState} from "react";
-import { Alert, Modal, TextInput } from "flowbite-react";
+import { Alert, Label, Modal, TextInput } from "flowbite-react";
 import { useMutation } from "react-query";
 import { API } from "../../config/api";
 
@@ -7,7 +7,8 @@ import { API } from "../../config/api";
 export default function RegisterModal({ show, handleClose }) {
 
   const [alert, setAlert] = useState();
-  const [preview, setPreview] = useState(null);
+  const [previewAvatar, setPreviewAvatar] = useState(null);
+  const [previewArt, setPreviewArt] = useState(null)
 
   const [form, setForm] = useState({
       fullname: "",
@@ -22,10 +23,13 @@ export default function RegisterModal({ show, handleClose }) {
 			...form,
 			[e.target.name]: e.target.type === "file" ? e.target.files : e.target.value,
 		});
-		if (e.target.type === "file") {
+		if (e.target.type === "file" && e.target.name === "image") {
 			let url = URL.createObjectURL(e.target.files[0]);
-			setPreview(url);
-		}
+			setPreviewAvatar(url);
+		} else if (e.target.type === "file" && e.target.name === "art") {
+            let url = URL.createObjectURL(e.target.files[0]);
+			setPreviewArt(url);
+        }
 	};
 
   const handleSubmit = useMutation(async (e) => {
@@ -107,11 +111,21 @@ export default function RegisterModal({ show, handleClose }) {
                           />
                       </div>
                       <div>
+                      <Label htmlFor="image">Upload Your Avatar</Label>
                       <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="image" id="image" name="image" type="file" onChange={handleChange}/>
                       </div>
-                      {preview && (
+                      {previewAvatar && (
                         	<div>
-                          <img src={preview} style={{maxWidth: "150px", maxHeight: "150px", objectFit: "cover",}} alt={"ini alt"}/>
+                          <img src={previewAvatar} className="w-[100px] h-[100px] rounded-full" alt={"ini alt"}/>
+                        </div>
+                      )}
+                      <div>
+                      <Label htmlFor="art" >Upload Your Art</Label>
+                      <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="art" id="art" name="art" type="file" onChange={handleChange}/>
+                      </div>
+                      {previewArt && (
+                        	<div>
+                          <img src={previewArt} style={{maxWidth: "150px", maxHeight: "150px", objectFit: "cover",}} alt={"ini alt"}/>
                         </div>
                       )}
 
