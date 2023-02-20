@@ -61,7 +61,7 @@ export default function DetailsUser() {
                 <div className="flex justify-between items-start gap-3">
                     <div className="w-full flex flex-col items-start">
                         <Avatar
-                            img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                            img={userProfile?.avatar}
                             rounded={true}
                             size="lg"
                         />

@@ -7,6 +7,7 @@ import HomePage from './pages/Home';
 import LandingPage from './pages/LandingPage';
 import DetailsUser from './pages/DetailUser';
 import PrivateRoute from './PrivateRoute';
+import UploadPage from './pages/upload';
 
 export default function App() {
   const navigate = useNavigate()
@@ -71,6 +72,7 @@ export default function App() {
           <Route exact path="/" element={<HomePage />} />
           <Route exact path="/detail/:id" element={<DetailPost />} />
           <Route exact path="/details-user/:id" element={<DetailsUser />} />
+          <Route exact path="/uploads" element={<UploadPage />} />
         </Route>
       </Routes>
     )}

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react"
 import { Navbar, Dropdown, Button, Avatar } from "flowbite-react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { AppContext } from "../context/AppContext"
 import logo from "../assets/images/logo.svg"
 import { useQuery } from "react-query"
@@ -8,7 +8,6 @@ import { API } from "../config/api"
 
 export default function Navbars() {
   const [state, dispatch] = useContext(AppContext)
-  console.log(state)
 
   const { data: dataNavbar } = useQuery("datanavbarcache", async () => {
     const response = await API.get("/post/" + state.user.ID)
@@ -32,24 +31,18 @@ export default function Navbars() {
       </Link>
     </Navbar.Brand>
     <div className="flex items-center gap-4">
-      <Button gradientDuoTone="greenToBlue">
-        Uploads
-      </Button>
+      <Link to={"/uploads"}>
+        <Button gradientDuoTone="greenToBlue">
+          Uploads
+        </Button>
+      </Link>
       <Dropdown
         arrowIcon={false}
         inline={true}
-        label={<Avatar alt="User settings" img={dataNavbar?.user.avatar} rounded={true}/>}
+        label={<Avatar alt="User settings" img={dataNavbar?.user.image} rounded={true}/>}
       >
-        <Dropdown.Header>
-          <span className="block text-sm">
-            Bonnie Green
-          </span>
-          <span className="block truncate text-sm font-medium">
-            name@flowbite.com
-          </span>
-        </Dropdown.Header>
         <Dropdown.Item>
-          <Link to={"/"}>
+          <Link to={"/uploads"}>
             Profile
           </Link>
         </Dropdown.Item>

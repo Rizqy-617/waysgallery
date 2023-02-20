@@ -24,7 +24,7 @@ export default function DetailPost() {
         <div className="w-full flex items-center justify-between">
           <div className="flex items-center gap-5">
             <Link to={`/details-user/${detailPost?.user.ID}`}>
-              <Avatar img={detailPost?.user.avatar} rounded={true} size="md"/>
+              <Avatar img={detailPost?.user.image} rounded={true} size="md"/>
             </Link>
             <div>
               <h1 className="font-medium text-lg">{detailPost?.title}</h1>
