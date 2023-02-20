@@ -10,9 +10,11 @@ export default function Navbars() {
   const [state, dispatch] = useContext(AppContext)
 
   const { data: dataNavbar } = useQuery("datanavbarcache", async () => {
-    const response = await API.get("/post/" + state.user.ID)
-    return response.data.data.post
+    const response = await API.get("/user/" + state.user.ID)
+    return response.data.data
   })
+
+  console.log("ini data", dataNavbar)
   const logout = () => {
     dispatch({
       type: "LOGOUT",
@@ -39,10 +41,10 @@ export default function Navbars() {
       <Dropdown
         arrowIcon={false}
         inline={true}
-        label={<Avatar alt="User settings" img={dataNavbar?.user.image} rounded={true}/>}
+        label={<Avatar alt="User settings" img={dataNavbar?.avatar} rounded={true}/>}
       >
         <Dropdown.Item>
-          <Link to={"/uploads"}>
+          <Link to={"/profile"}>
             Profile
           </Link>
         </Dropdown.Item>

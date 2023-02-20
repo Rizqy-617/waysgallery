@@ -14,7 +14,7 @@ export default function RegisterModal({ show, handleClose }) {
       email: "",
       password: "",
       greeting: "",
-      avatar: ""
+      image: ""
   });
 
 	const handleChange = (e) => {
@@ -38,14 +38,14 @@ export default function RegisterModal({ show, handleClose }) {
           formData.append("email", form.email);
           formData.append("password", form.password);
           formData.append("greeting", form.greeting);
-          formData.append("avatar", form.avatar[0], form.avatar[0].name);
+          formData.append("image", form.image[0], form.image[0].name);
 
           const response = await API.post("/register", formData);
 
           if (response.status === 200) {
               setAlert(
                   <Alert color="success">
-                      <span>Register successfully</span>
+                    <span>Register successfully</span>
                   </Alert>
               );
               handleClose();
@@ -107,7 +107,7 @@ export default function RegisterModal({ show, handleClose }) {
                           />
                       </div>
                       <div>
-                      <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="avatar" id="avatar" name="avatar" type="file" onChange={handleChange}/>
+                      <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="image" id="image" name="image" type="file" onChange={handleChange}/>
                       </div>
                       {preview && (
                         	<div>

@@ -7,7 +7,6 @@ import { useQuery } from "react-query";
 import { API } from "../config/api";
 import profileart from "../assets/images/404-error-with-landscape-concept-illustration_114360-7898.jpg"
 
-
 export default function DetailsUser() {
     const { id } = useParams()
     console.log("ini id", id)
@@ -26,25 +25,8 @@ export default function DetailsUser() {
             console.log(error)
         }
     })
-    const { data: DataUserProfile } = useQuery("DataUserProfileCache", async () => {
-        try {
-            const config = {
-                headers: {
-                    "Authorization": "Bearer " + localStorage.token
-                }
-            }
 
-            const response = await API.get("/post/" + id, config)
-            return response.data.data
-        } catch (error) {
-            console.log(error)
-        }
-    })
-
-
-    
     console.log("ini user baru harusnya", userProfile)
-    console.log("ini data post", DataUserProfile)
 
     return (
     <div className="w-screen h-screen">
@@ -72,12 +54,12 @@ export default function DetailsUser() {
                             {userProfile?.greeting}
                         </h1>
                         <div className="mt-12 flex items-center gap-3">
-                            <Button size="lg" color="light">
+                            <button type="submit" className="px-10 py-4 rounded text-black border-2 bg-[#f3f3f3] hover:bg-[#ababab] hover:transition hover:ease-in-out text-lg font-semibold">
                                 Follow
-                            </Button>
-                            <Button size="lg" color="success">
-                                Hire
-                            </Button>
+                            </button>
+                            <button type="submit" className="px-10 py-4 rounded border-2 border-teal-400 text-white bg-[#2FC4B2] hover:bg-[#167065] hover:transition hover:ease-in-out text-lg font-semibold">
+                                Hired
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -102,7 +84,7 @@ export default function DetailsUser() {
                                     src={
                                         item?.post_image[0].image
                                     }
-                                    className="w-50 rounded-md"
+                                    className="w-full h-64 rounded-md object-cover hover:shadow-md hover:shadow-green-500 hover:transition-shadow hover:ease-in-out"
                                 />
                                 </Link>
 							))}

@@ -55,12 +55,12 @@ export default function HomePage() {
         </div>
 
         <div className="pt-8 font-medium">
-          <h1>today's post</h1>
+          <h1 className="mb-4">today's post</h1>
           <Plock nColumns={3} gap={10}>
             {post?.map((item) => (
               <Link to={`/detail/${item.ID}`} key={item.ID}>
                 {item.post_image?.map((img, index) => (
-                    <img key={index} src={img.image} className="w-full rounded-md mb-6" alt="thumbnail" />
+                    <img key={index} src={img.image} className="w-full rounded-md hover:shadow-lg hover:shadow-green-500 hover:transition-shadow hover:ease-in-out" alt="thumbnail" />
                 )).shift()}
               </Link>
             ))}
