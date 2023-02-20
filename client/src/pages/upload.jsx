@@ -1,6 +1,6 @@
 import { Textarea, TextInput } from "flowbite-react";
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import Navbars from "../components/Navbars";
@@ -10,6 +10,7 @@ import { API } from "../config/api";
 import dataURItoBlob from "../lib/dataBlob";
 
 export default function UploadPage() {
+  const navigate = useNavigate()
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -78,13 +79,21 @@ export default function UploadPage() {
             text: "Post has been uploaded",
             icon: "success",
             confirmButtonText: "OK",
-          });
+            }).then((result) => {
+              if (result.isConfirmed) {
+                navigate("/")
+              }
+            })
         } else {
           Swal.fire({
             title: "Error",
             text: error.response.data.message,
             icon: "error",
-            confirmButtonText: "OK"
+            confirmButtonText: "OK",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate("/uploads")
+            }
           })
         }
       } catch (error) {

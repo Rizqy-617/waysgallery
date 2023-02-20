@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Navbars from "../components/Navbars";
 import { API } from "../config/api";
 import search from "../assets/icons8-search.svg"
+import { Plock } from "react-plock"
 
 export default function HomePage() {
 
@@ -55,17 +56,15 @@ export default function HomePage() {
 
         <div className="pt-8 font-medium">
           <h1>today's post</h1>
-            <div className="columns-3 md:columns-3 lg:columns-3 mt-4">
-              <div className="relative mb-4">
-                {post?.map((item) => (
-                  <Link to={`/detail/${item.ID}`} key={item.ID}>
-                    {item.post_image?.map((img, index) => (
-                        <img key={index} src={img.image} className="w-full rounded-md mb-6" alt="thumbnail" />
-                    )).shift()}
-                  </Link>
-                ))}
-              </div>
-            </div>
+          <Plock nColumns={3} gap={10}>
+            {post?.map((item) => (
+              <Link to={`/detail/${item.ID}`} key={item.ID}>
+                {item.post_image?.map((img, index) => (
+                    <img key={index} src={img.image} className="w-full rounded-md mb-6" alt="thumbnail" />
+                )).shift()}
+              </Link>
+            ))}
+          </Plock>
         </div>
     </div>
     </>
