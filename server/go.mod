@@ -4,7 +4,10 @@ go 1.19
 
 require github.com/joho/godotenv v1.5.1
 
-require github.com/go-sql-driver/mysql v1.7.0 // indirect
+require (
+	github.com/go-sql-driver/mysql v1.7.0 // indirect
+	github.com/midtrans/midtrans-go v1.3.6 // indirect
+)
 
 require (
 	github.com/cloudinary/cloudinary-go/v2 v2.2.0 // indirect

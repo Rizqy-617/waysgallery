@@ -9,7 +9,7 @@ import (
 type HiredRepository interface {
 	CreateHired(hired models.Hired) (models.Hired, error)
 	GetHired(ID int) (models.Hired, error)
-	UpdateHired(hired models.Hired) (models.Hired, error)
+	UpdateHired(status string, orderBy int) (models.Hired, error)
 	FindOffer(ID int) ([]models.Hired, error)
 	FindOrder(ID int) ([]models.Hired, error)
 }
@@ -24,10 +24,19 @@ func (r *repository) CreateHired(hired models.Hired) (models.Hired, error) {
 	return hired, err
 }
 
-func (r *repository) UpdateHired(hired models.Hired) (models.Hired, error) {
-	err := r.db.Model(&hired).Updates(hired).Error
+func (r *repository) UpdateHired(status string, orderBy int) (models.Hired, error) {
+  var hired models.Hired
+  r.db.Preload("UserOrderBy").Preload("UserOrderTo").First(&hired, orderBy)
 
-	return hired, err
+  if status != hired.Status && status == "success" {
+    var hired models.Hired
+    r.db.First(&hired, hired.ID)
+    r.db.Save(&hired)
+  }
+
+  hired.Status = status
+  err := r.db.Save(&hired).Error
+  return hired, err
 }
 
 func (r *repository) GetHired(ID int) (models.Hired, error) {
@@ -46,7 +55,7 @@ func (r *repository) FindOffer(ID int) ([]models.Hired, error) {
 
 func (r *repository) FindOrder(ID int) ([]models.Hired, error) {
 	var hireds []models.Hired
-	err := r.db.Preload("UserOrderBy").Preload("UserOrderTo").Where("ordert_to=?", ID).Find(&hireds).Error
+	err := r.db.Preload("UserOrderBy").Preload("UserOrderTo").Where("order_to=?", ID).Find(&hireds).Error
 
 	return hireds, err
 }

@@ -7,6 +7,7 @@ type CreateHiredRequest struct {
 	EndProject   string `json:"endProject" gorm:"type: varchar(255)" validate:"required"`
 	Price        int    `json:"price" gorm:"type: int" validate:"required"`
 	OrderTo      int    `json:"orderTo" gorm:"type: int" validate:"required"`
+	Status       string `json:"status" gorm:"type: varchar(255)"`
 }
 
 type UpdateHireRequest struct {

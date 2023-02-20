@@ -11,3 +11,7 @@ type CreateHiredResponse struct {
 	OrderBy      models.User `json:"orderBy"`
 	OrderTo      models.User `json:"orderTo"`
 }
+
+type HiredResponse struct {
+	Hired interface{} `json:"hired"`
+}

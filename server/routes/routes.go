@@ -8,4 +8,5 @@ func RouteInit(e *echo.Group) {
 	UserRoutes(e)
 	ArtRoutes(e)
 	FollowRoutes(e)
+	HiredRoutes(e)
 }
