@@ -15,7 +15,7 @@ type UserDetailResponse struct {
 	Avatar   string        `json:"avatar"`
 	Greeting string        `json:"greeting"`
 	Post     []models.Post `json:"posts"`
-	Arts     []models.Art  `json:"arts"`
+	Arts     string        `json:"arts"`
 }
 
 type UserPostResponse struct {

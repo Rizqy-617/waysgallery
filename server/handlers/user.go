@@ -46,11 +46,6 @@ func (h *handlerUser) GetUserDetailByLogin(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
 	}
 
-	arts, err := h.UserRepository.FindArtsByUserId(int(userId))
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
-	}
-
 	posts, err := h.UserRepository.FindPostByUserId(int(userId))
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
@@ -63,7 +58,7 @@ func (h *handlerUser) GetUserDetailByLogin(c echo.Context) error {
 		Greeting: user.Greeting,
 		Avatar: user.Avatar,
 		Post: posts,
-		Arts: arts,
+		Arts: user.Art,
 	}})
 }
 
@@ -71,11 +66,6 @@ func (h *handlerUser) GetUserDetailById(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	user, err := h.UserRepository.GetUserDetailById(id)
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
-	}
-
-	arts, err := h.UserRepository.FindArtsByUserId(id)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
 	}
@@ -92,7 +82,7 @@ func (h *handlerUser) GetUserDetailById(c echo.Context) error {
 		Greeting: user.Greeting,
 		Avatar: user.Avatar,
 		Post: posts,
-		Arts: arts,
+		Arts: user.Art,
 	}})
 }
 

@@ -24,6 +24,7 @@ export default function ProfilePage() {
     }
   })
 
+  console.log("ini data profile", profilePage)
   return (
     <div className="w-screen h-screen">
         <Navbars />
@@ -57,11 +58,19 @@ export default function ProfilePage() {
                     </div>
                 </div>
                 <div className="w-max">
+                  {profilePage?.arts !== "" ? (
+                    <img
+                    src={profilePage?.arts}
+                    alt="art"
+                    className="w-[800px] h-[500px] rounded-md border border-emerald-500"
+                />
+                  ) : (
                     <img
                         src={profileart}
                         alt="art"
                         className="w-[800px] h-[500px] rounded-md border border-emerald-500"
                     />
+                  )}
                 </div>
             </div>
             <div className="py-16 lg:max-w-screen-3xl ml-16 mr-20">
