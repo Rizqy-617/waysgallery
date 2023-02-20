@@ -3,7 +3,7 @@ package handlers
 import (
 	"fmt"
 	"net/http"
-	// "os"
+	"os"
 	"strconv"
 	"time"
 	hireddto "waysgallery/dto/hired"
@@ -14,8 +14,8 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/labstack/echo/v4"
-	// "github.com/midtrans/midtrans-go"
-	// "github.com/midtrans/midtrans-go/snap"
+	"github.com/midtrans/midtrans-go"
+	"github.com/midtrans/midtrans-go/snap"
 )
 
 type handlerHired struct {
@@ -61,27 +61,27 @@ func (h *handlerHired) CreateHired(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()})
 	}
 
-	// var s = snap.Client{}
-	// s.New(os.Getenv("SERVER_KEY"), midtrans.Sandbox)
-	// // Use to midtrans.Production if you want Production Environment (accept real transaction).
+	var s = snap.Client{}
+	s.New(os.Getenv("SERVER_KEY"), midtrans.Sandbox)
+	// Use to midtrans.Production if you want Production Environment (accept real transaction).
 
-	// // 2. Initiate Snap request param
-	// req := &snap.Request{
-	// 	TransactionDetails: midtrans.TransactionDetails{
-	// 		OrderID:  strconv.Itoa(int(hired.ID)),
-	// 		GrossAmt: int64(dataTransaction.Price),
-	// 	},
-	// 	CreditCard: &snap.CreditCardDetails{
-	// 		Secure: true,
-	// 	},
-	// 	CustomerDetail: &midtrans.CustomerDetails{
-	// 		FName: dataTransaction.UserOrderBy.Fullname,
-	// 		Email: dataTransaction.UserOrderBy.Email,
-	// 	},
-	// }
+	// 2. Initiate Snap request param
+	req := &snap.Request{
+		TransactionDetails: midtrans.TransactionDetails{
+			OrderID:  strconv.Itoa(int(hired.ID)),
+			GrossAmt: int64(dataTransaction.Price),
+		},
+		CreditCard: &snap.CreditCardDetails{
+			Secure: true,
+		},
+		CustomerDetail: &midtrans.CustomerDetails{
+			FName: dataTransaction.UserOrderBy.Fullname,
+			Email: dataTransaction.UserOrderBy.Email,
+		},
+	}
 
-	// snapResp, _ := s.CreateTransaction(req)
-	return c.JSON(http.StatusOK, dto.SuccessResult{Code: http.StatusOK, Data: dataTransaction})
+	snapResp, _ := s.CreateTransaction(req)
+	return c.JSON(http.StatusOK, dto.SuccessResult{Code: http.StatusOK, Data: snapResp})
 }
 
 func (h *handlerHired) FindOffer(c echo.Context) error {
