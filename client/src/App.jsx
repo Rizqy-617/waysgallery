@@ -10,6 +10,7 @@ import PrivateRoute from './PrivateRoute';
 import UploadPage from './pages/upload';
 import ProfilePage from './pages/Profile';
 import EditPage from './pages/EditProfile';
+import HiredPage from './pages/HiredPage';
 
 export default function App() {
   const navigate = useNavigate()
@@ -77,6 +78,7 @@ export default function App() {
           <Route exact path="/uploads" element={<UploadPage />} />
           <Route exact path="/profile" element={<ProfilePage />} />
           <Route exact path="/edit-profile" element={<EditPage />} />
+          <Route exact path="/hire-page" element={<HiredPage />} />
         </Route>
       </Routes>
     )}
