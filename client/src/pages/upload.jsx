@@ -109,7 +109,7 @@ export default function UploadPage() {
                   {selectedFiles.length > 0 ? (
                   <>
                   <div className="grid grid-cols-1 w-full gap-4">
-                    <div className="flex flex-col items-center justify-center w-full h-80 border-2 border-gray-300 border-dashed rounded-md cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                    <div className="flex flex-col items-center justify-center w-full h-80 border-2 border-gray-300 border-dashed rounded-md cursor-pointer bg-gray-50  dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                       <img
                         src={selectedFiles[0].image}
                         alt=""
@@ -254,7 +254,7 @@ export default function UploadPage() {
                         />
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-row justify-center gap-2">
                         <Link
                             to="/"
                             className="px-10 py-4 rounded text-slate-600 font-medium text-xs bg-gray-300"

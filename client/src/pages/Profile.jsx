@@ -51,9 +51,11 @@ export default function ProfilePage() {
                             {profilePage?.greeting}
                         </h1>
                         <div className="mt-12 flex items-center gap-3">
-                          <button type="submit" className="px-10 py-4 rounded text-white bg-[#2FC4B2] hover:bg-[#167065] hover:transition hover:ease-in-out text-lg font-semibold">
-                            Edit Profile
-                          </button>
+                          <Link to={"/edit-profile"}>
+                            <button className="px-10 py-4 rounded text-white bg-[#2FC4B2] hover:bg-[#167065] hover:transition hover:ease-in-out text-lg font-semibold">
+                              Edit Profile
+                            </button>
+                          </Link>
                         </div>
                     </div>
                 </div>

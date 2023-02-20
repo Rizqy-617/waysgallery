@@ -2,7 +2,9 @@ package handlers
 
 import (
 	"context"
-	"fmt"
+	"io"
+	"io/ioutil"
+	"mime/multipart"
 	"net/http"
 	"os"
 	"strconv"
@@ -87,25 +89,98 @@ func (h *handlerUser) GetUserDetailById(c echo.Context) error {
 }
 
 func (h *handlerUser) UpdateProfile(c echo.Context) error {
-	dataFile := c.Get("dataFile").(string)
+	var (
+		avatarFile, artFile *multipart.FileHeader
+		avatarPath, artPath string
+	)
 
+	form, err := c.MultipartForm()
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
+	}
+
+	// Get files from form
+	files := form.File["image"]
+	if len(files) > 0 {
+		avatarFile = files[0]
+	}
+	files = form.File["art"]
+	if len(files) > 0 {
+		artFile = files[0]
+	}
+
+	// Handle avatar file upload
+	if avatarFile != nil {
+		avatarSrc, err := avatarFile.Open()
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
+		}
+		defer avatarSrc.Close()
+
+		avatarTempFile, err := ioutil.TempFile("uploads", "avatar-*.png")
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
+		}
+		defer avatarTempFile.Close()
+
+		if _, err := io.Copy(avatarTempFile, avatarSrc); err != nil {
+			return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
+		}
+
+		avatarPath = avatarTempFile.Name()
+	}
+
+	// Handle art file upload
+	if artFile != nil {
+		artSrc, err := artFile.Open()
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
+		}
+		defer artSrc.Close()
+
+		artTempFile, err := ioutil.TempFile("uploads", "art-*.png")
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
+		}
+		defer artTempFile.Close()
+
+		if _, err := io.Copy(artTempFile, artSrc); err != nil {
+			return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
+		}
+
+		artPath = artTempFile.Name()
+	}
+
+	// Upload files to Cloudinary
 	var ctx = context.Background()
 	var CLOUD_NAME = os.Getenv("CLOUD_NAME")
 	var API_KEY = os.Getenv("API_KEY")
 	var API_SECRET = os.Getenv("API_SECRET")
-
 	cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
 
-	resp, err := cld.Upload.Upload(ctx, dataFile, uploader.UploadParams{Folder: "WaysGallery_Profile_picture"})
+	var avatarURL string
+	var artURL string
+	if avatarPath != "" {
+		avatarResp, err := cld.Upload.Upload(ctx, avatarPath, uploader.UploadParams{Folder: "WaysGallery_Profile_picture"})
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
+		}
+		avatarURL = avatarResp.SecureURL
+	}
 
-	if err != nil {
-		fmt.Println(err.Error())
+	if artPath != "" {
+		artResp, err := cld.Upload.Upload(ctx, artPath, uploader.UploadParams{Folder: "WaysGallery_Art"})
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
+		}
+		artURL = artResp.SecureURL
 	}
 
 	request := userdto.UpdateUserRequest{
-		Greeting: c.FormValue("greeting"),
 		Fullname: c.FormValue("fullname"),
-		Avatar: resp.SecureURL,
+		Greeting: c.FormValue("greeting"),
+		Avatar: avatarURL,
+		Art: artURL,
 	}
 
 	validation := validator.New()
@@ -128,8 +203,11 @@ func (h *handlerUser) UpdateProfile(c echo.Context) error {
 	if request.Greeting != "" {
 		user.Greeting = request.Greeting
 	}
-	if request.Avatar == "" {
+	if request.Avatar != "" {
 		user.Avatar = request.Avatar
+	}
+	if request.Art != "" {
+		user.Art = request.Art
 	}
 
 	data, err := h.UserRepository.UpdateProfile(user)

@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 
 export default function RegisterModal({ show, handleClose }) {
 
-    const [alert, setAlert] = useState();
     const [previewAvatar, setPreviewAvatar] = useState(null);
     const [previewArt, setPreviewArt] = useState(null)
 
@@ -66,9 +65,9 @@ export default function RegisterModal({ show, handleClose }) {
                     icon: "error",
                     confirmButtonText: "OK",
                 }).then((result) => {
-                    if (result.isConfirmed) {
+                if (result.isConfirmed) {
                         handleClose()
-                    }})
+                }})
             }
         } catch (error) {
             console.log(error);
@@ -84,7 +83,6 @@ export default function RegisterModal({ show, handleClose }) {
                         <h1 className="text-xl font-semibold text-[#2FC4B2]">
                             Register
                         </h1>
-                        {alert}
                         <form
                             onSubmit={(e) => handleSubmit.mutate(e)}
                             className="flex flex-col gap-4 mt-6"

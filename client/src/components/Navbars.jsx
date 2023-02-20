@@ -43,16 +43,16 @@ export default function Navbars() {
         inline={true}
         label={<Avatar alt="User settings" img={dataNavbar?.avatar} rounded={true}/>}
       >
-        <Dropdown.Item>
-          <Link to={"/profile"}>
+        <Link to={"/profile"}>
+          <Dropdown.Item>
             Profile
-          </Link>
-        </Dropdown.Item>
-        <Dropdown.Item>
-          <Link to={"/"}>
+          </Dropdown.Item>
+        </Link>
+        <Link to={"/"}>
+          <Dropdown.Item>
             Order
-          </Link>
-        </Dropdown.Item>
+          </Dropdown.Item>
+        </Link>
         <Dropdown.Divider />
         <Dropdown.Item onClick={logout}>
           Logout
