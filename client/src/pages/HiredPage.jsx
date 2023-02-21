@@ -17,9 +17,10 @@ export default function HiredPage() {
     endProject: "",
     price: "",
     orderTo: id,
+    status: ""
   })
 
-  const { title, description, startProject, endProject, price, orderTo } = form
+  const { title, description, startProject, endProject, price, orderTo, status } = form
 
   const handleChange = (e) => {
     setForm({
@@ -41,7 +42,7 @@ export default function HiredPage() {
       const body = JSON.stringify({form});
       console.log("ini body", body)
 
-      const response = await API.post("/hired", body, config)
+      const response = await API.post("/hired", form, config)
       console.log("ini response bidding")
       const newToken = response.data.data.token
       window.snap.pay(newToken, {
