@@ -36,6 +36,7 @@ func (h *handlerHired) CreateHired(c echo.Context) error {
 	userId := userLogin.(jwt.MapClaims)["id"].(float64)
 
 	request.Status = "pending"
+	price, _ := strconv.Atoi(request.Price)
 	startProject, _ := time.Parse("2006-01-02", request.StartProject)
 	endProject, _ := time.Parse("2006-01-02", request.EndProject)
 
@@ -50,7 +51,7 @@ func (h *handlerHired) CreateHired(c echo.Context) error {
 		Description: request.Description,
 		StartProject: startProject,
 		EndProject: endProject,
-		Price: request.Price,
+		Price: price,
 		OrderBy: int(userId),
 		OrderTo: request.OrderTo,
 		Status: request.Status,

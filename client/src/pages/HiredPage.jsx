@@ -98,7 +98,7 @@ export default function HiredPage() {
               <input type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="startProject" name="startProject" onChange={handleChange} value={startProject}/>
               <input type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="endProject" name="endProject" onChange={handleChange} value={endProject}/>
             </div>
-            <TextInput id="price" name="price" type="number" placeholder="Price" sizing="lg" required={true} onChange={handleChange} value={price} />
+            <TextInput id="price" name="price" type="text" placeholder="Price" sizing="lg" required={true} onChange={handleChange} value={price} />
             <div className="flex flex-row items-center justify-center">
               <button className="px-4 py-1 rounded border-2 border-teal-400 text-white bg-[#2FC4B2] hover:bg-[#167065] hover:transition hover:ease-in-out text-lg font-semibold" type="submit">
                 Bidding
