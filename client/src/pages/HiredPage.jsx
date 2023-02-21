@@ -15,10 +15,11 @@ export default function HiredPage() {
     description: "",
     startProject: "",
     endProject: "",
-    price: ""
+    price: "",
+    orderTo: id,
   })
 
-  const { title, description, startProject, endProject, price } = form
+  const { title, description, startProject, endProject, price, orderTo } = form
 
   const handleChange = (e) => {
     setForm({
