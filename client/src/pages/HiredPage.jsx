@@ -7,8 +7,8 @@ import { API } from "../config/api";
 
 
 export default function HiredPage() {
-  const { state } = useParams()
-  console.log("ini state", state)
+  const { id } = useParams()
+  console.log("ini state", id)
 
   const [form, setForm] = useState({
     title: "",
