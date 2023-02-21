@@ -78,7 +78,7 @@ export default function App() {
           <Route exact path="/uploads" element={<UploadPage />} />
           <Route exact path="/profile" element={<ProfilePage />} />
           <Route exact path="/edit-profile" element={<EditPage />} />
-          <Route exact path="/hire-page" element={<HiredPage />} />
+          <Route exact path="/hire-page/:id" element={<HiredPage />} />
         </Route>
       </Routes>
     )}

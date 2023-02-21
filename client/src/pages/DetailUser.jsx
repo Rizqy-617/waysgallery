@@ -57,7 +57,7 @@ export default function DetailsUser() {
                             <button type="submit" className="px-10 py-4 rounded text-black border-2 bg-[#f3f3f3] hover:bg-[#ababab] hover:transition hover:ease-in-out text-lg font-semibold">
                                 Follow
                             </button>
-                            <Link to={"/hire-page"}>
+                            <Link to={`/hire-page/${userProfile?.id}`}>
                                 <button className="px-10 py-4 rounded border-2 border-teal-400 text-white bg-[#2FC4B2] hover:bg-[#167065] hover:transition hover:ease-in-out text-lg font-semibold">
                                     Hire
                                 </button>

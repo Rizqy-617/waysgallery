@@ -35,7 +35,7 @@ export default function DetailPost() {
             <Button color="light">
               Follow
             </Button>
-            <Link to={"/hire-page"}>
+            <Link to={`/hire-page/${detailPost?.user.ID}`}>
               <button className="px-5 py-1 rounded border-2 border-teal-400 text-white bg-[#2FC4B2] hover:bg-[#167065] hover:transition hover:ease-in-out text-lg font-semibold">
                 Hire
               </button>
