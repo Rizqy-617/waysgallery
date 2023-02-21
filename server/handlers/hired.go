@@ -37,6 +37,7 @@ func (h *handlerHired) CreateHired(c echo.Context) error {
 
 	request.Status = "pending"
 	price, _ := strconv.Atoi(request.Price)
+	orderTo, _ := strconv.Atoi(request.OrderTo)
 	startProject, _ := time.Parse("2006-01-02", request.StartProject)
 	endProject, _ := time.Parse("2006-01-02", request.EndProject)
 
@@ -53,7 +54,7 @@ func (h *handlerHired) CreateHired(c echo.Context) error {
 		EndProject: endProject,
 		Price: price,
 		OrderBy: int(userId),
-		OrderTo: request.OrderTo,
+		OrderTo: orderTo,
 		Status: request.Status,
 	}
 
