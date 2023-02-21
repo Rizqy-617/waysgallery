@@ -1,13 +1,13 @@
 import { TextInput, Textarea } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { useMutation } from "react-query";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Navbars from "../components/Navbars";
 import { API } from "../config/api";
 
 
 export default function HiredPage() {
-  const { state } = useLocation()
+  const { state } = useParams()
   console.log("ini state", state)
 
   const [form, setForm] = useState({
