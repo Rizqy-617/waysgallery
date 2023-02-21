@@ -1,11 +1,15 @@
 import { TextInput, Textarea } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { useMutation } from "react-query";
+import { useLocation } from "react-router-dom";
 import Navbars from "../components/Navbars";
 import { API } from "../config/api";
 
 
 export default function HiredPage() {
+  const { state } = useLocation()
+  console.log("ini state", state)
+
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -33,13 +37,7 @@ export default function HiredPage() {
         }
       }
 
-      const body = JSON.stringify({
-        title,
-        description,
-        startProject,
-        endProject,
-        price,
-      });
+      const body = JSON.stringify({form});
       console.log("ini body", body)
 
       const response = await API.post("/hired", body, config)
